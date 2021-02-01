@@ -37,7 +37,7 @@ alfa = 0.01
 erroG = []
 erroQ = []
 g = 0
-gMax = 10
+gMax = 25
 #Enquanto for menos de 1k de gerações ou o erro não for igual a 0
 while (g<gMax or erro==0):
     erroG.append(0)
@@ -59,20 +59,22 @@ while (g<gMax or erro==0):
             del1 = delta[1] - (alfa * (1 / len(cidades)) * erroG[g] * cidades[a].populacao)
             delta[0] = del0
             delta[1] = del1
-            #print(delta, a, g)
+            print(delta, a, g)
     g += 1
 a=0
 print(erroG)
 for a in range(gMax):
-    plt.plot(a+1, abs(erroG[a]), 'rx')
+    plt.plot(a+1, erroG[a], 'rx')
 plt.show()
 
 #A partir daqui começa o gráfico
-#for a in range(len(cidades)): #para cada valor do meu array, plota um x e y
-#    plt.plot(cidades[a].populacao, cidades[a].lucro, 'rx')  # x vermelho
-#plt.axis([4, 24, -5, 25])
-#plt.title("Regressão Linear")
-#plt.grid(True)
-#plt.xlabel("Population 10.000s")
-#plt.ylabel("Lucro 10.000s")
-#plt.show()
+for a in range(len(cidades)): #para cada valor do meu array, plota um x e y
+    plt.plot(cidades[a].populacao, cidades[a].lucro, 'rx')  # x vermelho
+    yL = (delta[0]+(delta[1]*cidades[a].populacao))
+    plt.plot(cidades[a].populacao, yL, 'bx')
+plt.axis([4, 24, -5, 25])
+plt.title("Regressão Linear")
+plt.grid(True)
+plt.xlabel("Population 10.000s")
+plt.ylabel("Lucro 10.000s")
+plt.show()
