@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import random
 
 class Cidade():
     def __init__(self, populacao, lucro):
@@ -36,11 +37,13 @@ alfa = 0.01
 erroG = []
 erroQ = []
 g = 0
-gMax = 25
+gMax = 10
 #Enquanto for menos de 1k de gerações ou o erro não for igual a 0
 while (g<gMax or erro==0):
     erroG.append(0)
     erroQ.append(0)
+    #Função para misturar a lista
+    random.shuffle(cidades)
     # For que realiza a operação da obtenção dos valores
     for a in range(len(cidades)):
         yObt = delta[0] + delta[1]*cidades[a].populacao
@@ -56,12 +59,12 @@ while (g<gMax or erro==0):
             del1 = delta[1] - (alfa * (1 / len(cidades)) * erroG[g] * cidades[a].populacao)
             delta[0] = del0
             delta[1] = del1
-            print(delta, a, g)
+            #print(delta, a, g)
     g += 1
 a=0
 print(erroG)
 for a in range(gMax):
-    plt.plot(a+1, erroG[a], 'rx')
+    plt.plot(a+1, abs(erroG[a]), 'rx')
 plt.show()
 
 #A partir daqui começa o gráfico
